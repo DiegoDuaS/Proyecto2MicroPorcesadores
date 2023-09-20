@@ -22,28 +22,26 @@
 #include <math.h>
 #include <omp.h>
 
-int main(int argc, char* argv[]){
-    int vueltas = 10;
-    double pista;
-    printf("Ingresa el tamaño de la pista en metros: ");
-    scanf("%d", &pista);
-    
-}
 
+#include <string.h>
+
+
+#include <time.h>
 
 struct Carro {
     char nombre[50];
     double velocidad;
-    double paradas;
+    double paradas; 
 };
 
-struct Carro crearCarro(const char *nombre, int velocidad, int paradas) {
+struct Carro crearCarroAleatorio(int numeroCarro) {
     struct Carro carro;
-    strncpy(carro.nombre, nombre, sizeof(carro.nombre));
-    carro.velocidad = velocidad;
-    carro.paradas = paradas;
+    sprintf(carro.nombre, "Carro %d", numeroCarro); 
+    carro.velocidad = (rand() % 40+ 47.7778) /2; 
+    carro.paradas = rand() % 6 + 1; 
     return carro;
 }
+
 
 double calcularTiempoVuelta(const struct Carro *carro, double longitudPista) {
     double velocidadCarro = carro->velocidad; 
@@ -55,4 +53,39 @@ double paradasTiempo(const struct Carro *carro, double tiempo){
     double paradasCarro = carro->paradas;
     double vueltapar = tiempo / paradasCarro;
     return vueltapar;
+}
+
+void simuladorCarrera(const struct Carro *carro, double longitudPista){
+    double tiempovuelta = calcularTiempoVuelta(carro, longitudPista);
+    double tiempoparo = paradasTiempo(carro, tiempovuelta);
+    int vueltas;
+    
+}
+
+
+
+int main(int argc, char* argv[]){
+    int vueltas = 10;
+    double pista;
+    int numeroCarros = 8;
+    srand(time(NULL));
+    struct Carro carros[8];
+    for (int i = 0; i < 8; i++) {
+        carros[i] = crearCarroAleatorio(i + 1);
+    }
+    printf("Estado inicial de los carros:\n");
+    for (int i = 0; i < 8; i++) {
+        printf("Carro %d - Nombre: %s, Velocidad: %.2lf m/s, Paradas: %.0lf\n", i + 1, carros[i].nombre, carros[i].velocidad, carros[i].paradas);
+    }
+
+
+  
+    printf("Ingresa el tamaño de la pista en metros: ");
+    scanf("%d", &pista);
+
+    #pragma omp parallel 
+    {
+
+    }
+    
 }
