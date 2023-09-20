@@ -19,17 +19,22 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <omp.h>
 
 int main(int argc, char* argv[]){
+    int vueltas = 10;
+    double pista;
+    printf("Ingresa el tamaño de la pista en metros: ");
+    scanf("%d", &pista);
 
 }
 
 
 struct Carro {
     char nombre[50];
-    int velocidad;
-    int paradas;
+    double velocidad;
+    double paradas;
 };
 
 struct Carro crearCarro(const char *nombre, int velocidad, int paradas) {
@@ -40,12 +45,25 @@ struct Carro crearCarro(const char *nombre, int velocidad, int paradas) {
     return carro;
 }
 
-int getVelocidad(const struct Carro *carro){
-    int vel = carro->velocidad;
+double getVelocidad(const struct Carro *carro){
+    double vel = carro->velocidad;
     return vel;
 }
 
-int getParadas(const struct Carro *carro){
-    int par = carro->paradas;
+double getParadas(const struct Carro *carro){
+    double par = carro->paradas;
     return par;
+}
+
+double calcularTiempoVuelta(const struct Carro *carro, double longitudPista) {
+    double velocidadCarro = carro->velocidad; 
+    double tiempoVuelta = longitudPista / velocidadCarro;
+    return tiempoVuelta;
+}
+
+double paradasEnVueltas(const struct Carro *carro, int vueltas){
+    double paradasCarro = carro->paradas;
+    double vueltapar = vueltas / paradasCarro;
+    vueltapar = floor(vueltapar);
+    return vueltapar;
 }
