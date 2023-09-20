@@ -27,7 +27,7 @@ int main(int argc, char* argv[]){
     double pista;
     printf("Ingresa el tamaño de la pista en metros: ");
     scanf("%d", &pista);
-
+    
 }
 
 
@@ -45,25 +45,14 @@ struct Carro crearCarro(const char *nombre, int velocidad, int paradas) {
     return carro;
 }
 
-double getVelocidad(const struct Carro *carro){
-    double vel = carro->velocidad;
-    return vel;
-}
-
-double getParadas(const struct Carro *carro){
-    double par = carro->paradas;
-    return par;
-}
-
 double calcularTiempoVuelta(const struct Carro *carro, double longitudPista) {
     double velocidadCarro = carro->velocidad; 
     double tiempoVuelta = longitudPista / velocidadCarro;
     return tiempoVuelta;
 }
 
-double paradasEnVueltas(const struct Carro *carro, int vueltas){
+double paradasTiempo(const struct Carro *carro, double tiempo){
     double paradasCarro = carro->paradas;
-    double vueltapar = vueltas / paradasCarro;
-    vueltapar = floor(vueltapar);
+    double vueltapar = tiempo / paradasCarro;
     return vueltapar;
 }
